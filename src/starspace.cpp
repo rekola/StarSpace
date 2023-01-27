@@ -127,7 +127,7 @@ void StarSpace::initFromSavedModel(const string& filename) {
   initParser();
   initDataHandler();
 
-    loadBaseDocs();
+  // loadBaseDocs();
 }
 
 void StarSpace::initFromTsv(const string& filename) {
