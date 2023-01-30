@@ -174,7 +174,9 @@ Real EmbedModel::train(shared_ptr<InternDataHandler> data,
     int i = 0;
     for (auto& idx: indices) idx = i++;
   }
-  std::random_shuffle(indices.begin(), indices.end());
+  std::random_device rd;
+  std::mt19937 g(rd());
+  std::shuffle(indices.begin(), indices.end(), g);
 
   // Compute word negatives
   if (args_->trainMode == 5 || args_->trainWord) {
@@ -232,7 +234,7 @@ Real EmbedModel::train(shared_ptr<InternDataHandler> data,
       if (args_->trainMode != 5) {
         ParseResults ex;
         data->getExampleById(i, ex);
-        if (ex.LHSTokens.size() == 0 or ex.RHSTokens.size() == 0) {
+        if (ex.LHSTokens.size() == 0 || ex.RHSTokens.size() == 0) {
           continue;
         }
         examples.push_back(ex);
